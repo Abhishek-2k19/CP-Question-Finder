@@ -5,17 +5,22 @@ const { resolve } = require('path');
 
 const homepageLink = 'https://leetcode.com/problemset/all/';
 
-async function scrapeLeetCodeQuestions(pageNumber,browser) {
-  const pageLink = homepageLink + `?page=${pageNumber}`;
+async function scrapeLeetCodeQuestions(pageButton,browser,index,page) {
   // await page.goto(pageLink);  
-  console.log(`Scrapping from : ${pageLink}`);
-  const page = await browser.newPage();
-  await page.goto(pageLink);
+  console.log(`Scrapping from : ${index}`);
 
-  await page.waitForFunction(() => {
-    // Check if the desired element is present or any specific condition is met
-    return document.querySelector('.h-5.hover\\:text-blue-s.dark\\:hover\\:text-dark-blue-s') !== null;
-  });
+  // await pageButton.click();
+  // await page.waitForNavigation();
+  await Promise.all([
+    pageButton.click(), // Click the button
+    // page.waitForNavigation({ waitUntil: 'networkidle0' , timeout: 60000}), // Wait for navigation to complete
+    page.waitForSelector('div.-mx-4.transition-opacity.md\\:mx-0'),
+  ]);
+
+  // await page.waitForFunction(() => {
+  //   // Check if the desired element is present or any specific condition is met
+  //   return document.querySelector('.h-5.hover\\:text-blue-s.dark\\:hover\\:text-dark-blue-s') !== null;
+  // });
 
   // taking page data for dom manipulation
   const pageData = await page.content()
@@ -31,9 +36,7 @@ async function scrapeLeetCodeQuestions(pageNumber,browser) {
   }
 
   console.log(linksArray.length);
-  fs.writeFileSync(`links${pageNumber}.txt`, linksArray.join('\n'));
-
-  await page.close();
+  fs.writeFileSync(`links${index}.txt`, linksArray.join('\n'));
 }
   
 
@@ -47,7 +50,7 @@ async function scrapeLeetCodeQuestions(pageNumber,browser) {
 
 function getNumberOfPages(){
   return new Promise(async(resolve,reject)=> {
-    const browser = await puppeteer.launch('headless:false');
+    const browser = await puppeteer.launch({ headless: false });
     const page = await browser.newPage();
     await page.goto(homepageLink);
 
@@ -73,17 +76,8 @@ function getNumberOfPages(){
     if(buttons.length==0){
       reject(new Error('Error2: Failed to scrap the page button container!'));
     }
-    let numPages = 1;
-    buttons.forEach((button) => {
-      let newStr = button.textContent.trim();
-      if(newStr!=""){
-        const pgN = parseInt(newStr);
-        if(!isNaN(pgN)){
-          numPages = Math.max(numPages,pgN);
-        }
-      }
-    });
-    resolve(numPages);
+
+    resolve(buttons);
     await browser.close();
   });
 }
@@ -91,8 +85,16 @@ function getNumberOfPages(){
 getNumberOfPages()
 .then(async(result)=>{
   const browser = await puppeteer.launch({ headless: false });
-  for(let i=1;i<=result;i++){
-    await scrapeLeetCodeQuestions(i,browser);
+  const page = await browser.newPage();
+  await page.goto(homepageLink);
+  // waiting for page to load the dynamic part
+  await page.waitForFunction(() => {
+    // Check if the desired element is present or any specific condition is met
+    return document.querySelector('.h-5.hover\\:text-blue-s.dark\\:hover\\:text-dark-blue-s') !== null;
+  });
+
+  for (let i = 1; i < result.length - 1; i++) {
+    await scrapeLeetCodeQuestions(result[result.length - 1],browser,i,page);
   }
-  await browser.close();
+  // await browser.close();
 })
