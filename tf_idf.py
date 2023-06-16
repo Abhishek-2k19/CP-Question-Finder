@@ -31,7 +31,7 @@ UPDATE_TF_IDF_DOC = False
 
 def preprocess(sentence):
     sentence = sentence.lower()          
-    sentence = re.sub(r'[^\w\s]', ' ', sentence)
+    sentence = re.sub(r'[^\w\s]', ' ', sentence).replace('_', ' ')
     
     text_tokens = word_tokenize(sentence)
     tokens_without_sw = [lemmatizer.lemmatize(word) for word in text_tokens if not word in stopwords.words()]
@@ -41,6 +41,7 @@ def preprocess(sentence):
 def makeTf(key,val):
     sentence = key + val
     sentence = preprocess(sentence)
+    # print("sentence: ",sentence)
     # print(sentence)
     word_count_dict = dict(Counter(sentence))
     # print(word_count_dict)
@@ -125,6 +126,8 @@ if __name__=="__main__":
     
     
     print(len(tf_idf_doc))
+
+    # print(idf['program'])
     # first_five = dict(itertools.islice(tf_idf_doc.items(), 5))
 
     # # Print the first five elements

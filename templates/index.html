@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CP-Question-Finder</title>
+    <script src="{{url_for('static',filename = 'scripts/index.js')}}"defer></script>
+    <link rel="stylesheet" href="{{url_for('static',filename = 'css/style-light.css')}}" id="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&family=Inter&family=Roboto&family=Rubik:wght@300;400;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.cdnfonts.com/css/cascadia-code" rel="stylesheet">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+  
+    <div class="cont">
+        {% if errors %}
+        <div class="flash-messages">
+          {% for error in errors %}
+            <li class="flash-message">{{ error }}</li>
+          {% endfor %}
+        </div>
+      {% endif %}
+        <div class="textBig">CP - <span class="redText">QUESTION</span> - FINDER</div>
+        <div>
+            <form method="POST">
+              <div class="form-ch">
+                {{ form.hidden_tag() }} 
+              <div class="content1">
+                {{ form.search.label(class='search-label') }}
+                {{ form.search(class='input-field') }}
+              </div>
+
+              <div class="content2">
+                <!-- <div>{{form.numb.label}}</div>
+                <div style="margin-left: 1em;">{{form.numb()}}</div> -->
+                {{form.numb.label(class="numb-question-label")}}
+                {{form.numb(class="numb-question-input")}}
+              </div>
+              
+              <!-- <div class="btn">{{form.submit() }}</div>  -->
+              </div>
+              
+              <div class="par-btn">
+                {{form.submit(class='submit-button') }}
+              </div>
+            
+            </form>
+            
+          </div>
+
+          
+            
+          <div class="bottom-bar">
+            Made by Abhishek S Purohit
+          </div>
+
+          {% block togg_but %}
+          <button class="toggle-btn" onclick="toggleDarkMode()" id="btn-tog">Toggle</button>            
+          {% endblock %}
+
+          {% block extra_content %}{% endblock %}
+
+          <!-- {% if form.search.errors %}
+            <ul class="errors">
+            {% for error in form.name.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %} -->
+    </div>
+
+</body>
+</html>

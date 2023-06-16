@@ -1,0 +1,98 @@
+
+{% extends 'index.html' %}
+
+{% block extra_head %}
+<!-- <script src="{{ url_for('static', filename='scripts/index.js') }}" defer></script> -->
+<script defer>
+  function toggleDarkModeNew() {
+  var stylesheet = document.getElementById('stylesheet');
+  if (stylesheet.getAttribute('href') === "{{ url_for('static', filename='css/style-light.css') }}") {
+    stylesheet.setAttribute('href', "{{ url_for('static', filename='css/style-dark.css') }}");
+  } else {
+    stylesheet.setAttribute('href', "{{ url_for('static', filename='css/style-light.css') }}");
+  }
+}
+</script>
+{% endblock %}
+
+{% block togg_but %}
+  <button class="toggle-btn" onclick="toggleDarkModeNew()" id="btn-tog">Hi</button>              
+{% endblock %}
+
+{% block extra_content %}
+  <!-- <div>
+    {% for result in results %}
+    <a href="{{ results[result][0] }}">{{ result }}</a>
+    <p>{{ results[result][1] }}</p>
+    {% endfor %}
+  </div> -->
+
+  <div style="margin-bottom: 4em;">
+    {% if results %}
+    {% for result in results %}
+    <div class="card custom-card">
+      <div class="card-body custom-card-body">
+        <h5 class="card-title card-title-custom">{{ loop.index }}. {{ result }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted"><a href="{{ results[result][0] }}" class="qlink" target ='_blank'>{{ results[result][0] }}</a></h6>
+        <p class="card-text custom-card-text">{{ results[result][1] }}</p>
+        <!-- <a href="{{ results[result][0] }}" class="card-link">Open</a> -->
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="no-results"> No relevant results found! Try searching with some other keywords</div>
+    {% endif %}
+  </div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CP-Question-Finder</title>
+    <link rel="stylesheet" href="{{url_for('static',filename = 'css/result.css')}}">
+    <script src="{{url_for('static',filename = 'scripts/result.js')}}" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans&family=Inter&family=Roboto&family=Rubik:wght@300;400;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="form">
+        <form method="POST">
+          {{ form.hidden_tag() }} {{ form.search.label }} {{ form.search() }} {{form.numb.label}} {{form.numb()}} {{form.submit() }} 
+        </form>
+      </div>
+      <div>
+        {% for result in results %}
+        <a href="{{ results[result][0] }}">{{ result }}</a>
+        <p>Score: {{ results[result][1] }}</p>
+        {% endfor %}
+      </div>
+</body>
+</html> -->
