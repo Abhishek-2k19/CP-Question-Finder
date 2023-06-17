@@ -53,6 +53,10 @@ def return_links(query,num):
 
 def makeResult(tempResults):
     results = {}
+    with open('cleanData.json') as file:
+        # Load the contents of the file into a dictionary
+        data = json.load(file)
+    
     if tempResults[list(tempResults.keys())[0]]==0:
         return results
     for question in tempResults:
@@ -96,8 +100,8 @@ def home():
 
 
 if __name__ == "__main__":
-    with open('data.json') as file:
-        # Load the contents of the file into a dictionary
-        data = json.load(file)
-    data  = {key:' '.join([s for s in val if s]).replace('\xa0', ' ') for key,val in data.items() }
-    app.run(debug=True)
+    # with open('data.json') as file:
+    #     # Load the contents of the file into a dictionary
+    #     data = json.load(file)
+    # data  = {key:' '.join([s for s in val if s]).replace('\xa0', ' ') for key,val in data.items() }
+    app.run()

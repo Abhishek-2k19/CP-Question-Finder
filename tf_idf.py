@@ -65,6 +65,8 @@ if __name__=="__main__":
 
     cleanData = {key:val for key,val in data.items() if val.strip()!=''}
 
+    with open('cleanData.json', 'w') as f:
+        json.dump(cleanData, f)
     # following lnc.ltc conventions
 
     # so here, for doc, we follow lnc, l->log for tf, n->no for idf, c-> cosine as similarity
