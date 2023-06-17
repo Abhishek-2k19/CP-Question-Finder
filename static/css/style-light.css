@@ -221,5 +221,5 @@ html,body{
   }
 
   #stylesheet{
-    transition: all 2s;
+    transition: all 0.2s ease;
   }

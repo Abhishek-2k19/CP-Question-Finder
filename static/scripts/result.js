@@ -10,3 +10,4 @@ function toggleDarkMode() {
     }
     console.log(stylesheet.getAttribute('href'))
   }
+

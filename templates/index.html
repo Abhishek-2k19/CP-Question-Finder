@@ -5,6 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CP-Question-Finder</title>
+    <script defer>
+      function setDarkMode() {
+      // Toggle dark mode state
+      var darkMode = localStorage.getItem('darkMode');
+      if (darkMode === null) {
+        darkMode = false;
+      } else {
+        darkMode = JSON.parse(darkMode);
+      }
+      console.log(darkMode)
+      // Store dark mode state in local storage
+      localStorage.setItem('darkMode', JSON.stringify(darkMode));
+    
+      // Perform other actions based on the dark mode state
+      if (darkMode) {
+        // Dark mode is ON
+        stylesheet.setAttribute('href', "{{ url_for('static', filename='css/style-dark.css') }}");
+        stylesheet.classList.add('transition');
+      } else {
+        // Dark mode is OFF
+        stylesheet.setAttribute('href', "{{ url_for('static', filename='css/style-light.css') }}");
+        stylesheet.classList.add('transition');
+      }
+    }
+    
+      window.onload = setDarkMode;
+    
+    </script>
     <script src="{{url_for('static',filename = 'scripts/index.js')}}"defer></script>
     <link rel="stylesheet" href="{{url_for('static',filename = 'css/style-light.css')}}" id="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
