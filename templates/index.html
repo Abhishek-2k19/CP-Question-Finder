@@ -9,6 +9,7 @@
       function setDarkMode() {
       // Toggle dark mode state
       var darkMode = localStorage.getItem('darkMode');
+      var togbtn = document.getElementById('btn-tog');
       if (darkMode === null) {
         darkMode = false;
       } else {
@@ -21,10 +22,12 @@
       // Perform other actions based on the dark mode state
       if (darkMode) {
         // Dark mode is ON
+        togbtn.textContent = "Light Mode";
         stylesheet.setAttribute('href', "{{ url_for('static', filename='css/style-dark.css') }}");
         stylesheet.classList.add('transition');
       } else {
         // Dark mode is OFF
+        togbtn.textContent = "Dark Mode";
         stylesheet.setAttribute('href', "{{ url_for('static', filename='css/style-light.css') }}");
         stylesheet.classList.add('transition');
       }
@@ -34,6 +37,8 @@
     
     </script>
     <script src="{{url_for('static',filename = 'scripts/index.js')}}"defer></script>
+    <link rel="preload" href="{{url_for('static',filename = 'css/style-light.css')}}" as="style">
+    <link rel="preload" href="{{url_for('static',filename = 'css/style-dark.css')}}" as="style">
     <link rel="stylesheet" href="{{url_for('static',filename = 'css/style-light.css')}}" id="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">

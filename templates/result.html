@@ -6,6 +6,7 @@
 
 <script defer>
   function toggleDarkModeNew() {
+  var togbtn = document.getElementById('btn-tog');
   var stylesheet = document.getElementById('stylesheet');
   var darkMode = localStorage.getItem('darkMode');
   if (darkMode === null) {
@@ -20,10 +21,12 @@
   if (!darkMode){
     stylesheet.setAttribute('href', "{{ url_for('static', filename='css/style-dark.css') }}");
     darkMode = true;
+    togbtn.textContent = "Light Mode";
     localStorage.setItem('darkMode', JSON.stringify(darkMode));
   } else {
     stylesheet.setAttribute('href', "{{ url_for('static', filename='css/style-light.css') }}");
     darkMode = false;
+    togbtn.textContent = "Dark Mode";
     localStorage.setItem('darkMode', JSON.stringify(darkMode));
   }
   
