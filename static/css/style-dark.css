@@ -229,11 +229,28 @@ html,body{
     color:#F92672;
   }
 
-  .toggle-btn{
+  /* .toggle-btn{
     position: fixed;
     top: 3em;
     right: 1em;
-  }
+  } */
+
+.toggle-btn{
+  position: absolute;
+  top:0.4em;
+  right:2em;
+  margin:auto;
+  font-family: 'Roboto', sans-serif;
+  font-size:1em;
+  font-weight: 700;
+  color:black;
+  background-color:white;
+  border-radius: 2em;
+  padding-right:0.4em;
+  padding-left: 0.4em;
+  padding-top:0.2em;
+  padding-bottom:0.2em;
+}
 
   #stylesheet{
     transition: all 2s;

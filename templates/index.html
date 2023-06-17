@@ -58,6 +58,12 @@
           {% endfor %}
         </div>
       {% endif %}
+      
+      
+      {% block togg_but %}
+      <button class="toggle-btn" onclick="toggleDarkMode()" id="btn-tog">Toggle</button>            
+      {% endblock %}
+      
         <div class="textBig">CP - <span class="redText">QUESTION</span> - FINDER</div>
         <div>
             <form method="POST">
@@ -92,9 +98,6 @@
             Made by Abhishek S Purohit
           </div>
 
-          {% block togg_but %}
-          <button class="toggle-btn" onclick="toggleDarkMode()" id="btn-tog">Toggle</button>            
-          {% endblock %}
 
           {% block extra_content %}{% endblock %}
 
